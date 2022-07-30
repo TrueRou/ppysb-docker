@@ -11,6 +11,8 @@ services:
       - project:/osu-server
     networks:
       - network
+    environment:
+      IS_DEV: $IS_DEV
 
   guweb:
     build:
@@ -24,6 +26,8 @@ services:
       - project:/osu-server
     networks:
       - network
+    environment:
+      IS_DEV: $IS_DEV
 
   redis:
     image: redis:6.2-alpine
