@@ -28,7 +28,8 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
 ENV PATH /root/.cargo/bin:$PATH
 
 WORKDIR /osu-server/bancho.py
-RUN git submodule update --init \
+RUN source $HOME/.cargo/env \
+    git submodule update --init \
     && pip install -U pip setuptools \
     && python3.9 -m pip install -r requirements.txt 
 COPY .env /osu-server/bancho.py/
