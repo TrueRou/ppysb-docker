@@ -33,17 +33,17 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH /root/.cargo/bin:$PATH
 
 WORKDIR /osu-server/bancho.py
-RUN source $HOME/.cargo/env \
-    && git submodule update --init \
+RUN git submodule update --init \
     && pip install -U pip setuptools \
     && python3.9 -m pip install -r requirements.txt 
 COPY .env /osu-server/bancho.py/
 # Just for the pp system of ppysb(we need rust environment)
-RUN source $HOME/.cargo/env && bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
+RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
 WORKDIR /osu-server/guweb
 RUN git submodule init && git submodule update \
     && python3.9 -m pip install -r ext/requirements.txt
+RUN yarn install --dev && yarn i18n:build
 COPY config.py /osu-server/guweb/
 
 # code-server
