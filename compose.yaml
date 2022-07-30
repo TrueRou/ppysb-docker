@@ -1,14 +1,26 @@
 services:
-  app:
+  bancho.py:
     build:
       context: app
-      target: builder
+      target: bancho.py
+    restart: always
+    ports:
+      - 8081:8080
+    volumes:
+      - unix-sockets:/socket
+      - project:/osu-server
+    networks:
+      - network
+
+  guweb:
+    build:
+      context: app
+      target: guweb
     restart: always
     ports:
       - 8080:8080
       - 10000:10000
     volumes:
-      - unix-sockets:/socket
       - project:/osu-server
     networks:
       - network
@@ -52,7 +64,6 @@ volumes:
   # maybe bancho.py was born with the complexity when using docker. lol
   unix-sockets:
   project:
-  python-data:
 
 networks:
   network:
