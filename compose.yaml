@@ -5,14 +5,13 @@ services:
       target: builder
     restart: always
     ports:
+      - 8080:8080
       - 10000:10000
     volumes:
-        - unix-sockets:/socket
-        - project:/osu-server
+      # - unix-sockets:/socket
+      - project:/osu-server
     networks:
       - network
-    profiles:
-      - prod
 
   redis:
     image: redis:6.2-alpine
@@ -24,22 +23,6 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - redis-data:/data
-    profiles:
-      - prod
-      - dev
-
-  code:
-    image: codercom/code-server
-    restart: unless-stopped
-    environment:
-      PASSWORD: "password"
-    ports:
-      - 8080:8080
-    volumes:
-      - project:/home/coder/osu-server
-    profiles:
-      - prod
-      - dev
 
   mysql:
     build:
@@ -52,9 +35,6 @@ services:
       - 3306:3306
     networks:
       - network
-    profiles:
-      - prod
-      - dev
 
   nginx:
     build: nginx
@@ -65,9 +45,6 @@ services:
         - unix-sockets:/socket
     networks:
       - network
-    profiles:
-      - prod
-      - dev
 
 volumes:
   mysql-data:
@@ -75,6 +52,7 @@ volumes:
   # maybe bancho.py was born with the complexity when using docker. lol
   unix-sockets:
   project:
+  python-data:
 
 networks:
   network:

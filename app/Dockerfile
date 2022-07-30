@@ -3,9 +3,8 @@ FROM --platform=$BUILDPLATFORM python:3.9-alpine AS builder
 
 ENV OSU_REPO_URL https://github.com/ppy-sb/bancho.py.git
 ENV WEB_REPO_URL https://github.com/ppy-sb/guweb.git
-# ENV CODE_SERVER_URL https://github.com/coder/code-server/releases/download/v4.5.1/code-server-4.5.1-linux-amd64.tar.gz
 
-# EXPOSE 8080
+EXPOSE 8080
 EXPOSE 10000
 
 WORKDIR /osu-server
@@ -16,7 +15,7 @@ RUN apk update \
     && apk add curl \
     && apk add gcompat \
     && apk add gnupg \
-    # && apk add nodejs npm \
+    && apk add nodejs yarn \
     && apk add build-base \
     && apk add libffi-dev \
     && apk add linux-headers \ 
@@ -47,20 +46,15 @@ RUN git submodule init && git submodule update \
     && python3.9 -m pip install -r ext/requirements.txt
 COPY config.py /osu-server/guweb/
 
-# WORKDIR /
-# missing dependency for code-server
-# RUN npm install -g node-addon-api
+# code-server
 
-# RUN npm install -g code-server
-# RUN wget $CODE_SERVER_URL -O code-server.tar.gz
-# RUN mkdir code-server \
-#     && tar -zxvf code-server.tar.gz -C /code-server --strip-components 1 \
-#     && sed -i 's/"$ROOT\/lib\/node"/node/g'  /code-server/bin/code-server \
-#     && rm /code-server/lib/node \
-#     && rm /code-server.tar.gz
-
-# RUN code-server --install-extension ms-python.python
+WORKDIR /
+RUN yarn global add add node-gyp
+RUN yarn global add code-server
+RUN code-server --install-extension ms-python.python
 # RUN code-server --install-extension lokalise.i18n-ally
+ENTRYPOINT [ "code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
 
-# CMD ["bash", "code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
-CMD [ "ls", "/osu-server" ]
+# vs-code-server
+# RUN wget -O- https://aka.ms/install-vscode-server/setup.sh | sh
+# ENTRYPOINT [ "code-server" ]
