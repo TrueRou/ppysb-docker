@@ -53,8 +53,8 @@ RUN yarn global add add node-gyp
 RUN yarn global add code-server
 RUN code-server --install-extension ms-python.python
 # RUN code-server --install-extension lokalise.i18n-ally
-ENTRYPOINT [ "code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
-
+COPY run-on-start.sh /run-on-start.sh
+ENTRYPOINT [ "bash", "run-on-start.sh" ]
 # vs-code-server
 # RUN wget -O- https://aka.ms/install-vscode-server/setup.sh | sh
 # ENTRYPOINT [ "code-server" ]
