@@ -25,6 +25,8 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
     && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc \
     && source ~/.bashrc
 
+ENV PATH /root/.cargo/bin:$PATH
+
 WORKDIR /osu-server/bancho.py
 RUN git submodule update --init \
     && pip install -U pip setuptools \
