@@ -18,7 +18,7 @@ mysql = {
     'db': 'banchopy',
     'host': 'mysql',
     'user': 'root',
-    'password': 'banchopy',
+    'password': '',
 }
 
 # path to gulag root (must have leading and following slash)

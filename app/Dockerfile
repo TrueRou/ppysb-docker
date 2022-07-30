@@ -28,8 +28,8 @@ RUN git submodule update --init \
     && python3.9 -m pip install -r requirements.txt 
 COPY .env /osu-server/bancho.py/
 # Just for the pp system of ppysb(we need rust environment)
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-RUN echo 'source $HOME/.cargo/env' >> $HOME/.bashrc \
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
+    && echo 'source $HOME/.cargo/env' >> $HOME/.bashrc \
     && source ~/.bashrc \
     && bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
