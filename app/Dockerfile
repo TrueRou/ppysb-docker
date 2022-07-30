@@ -31,6 +31,8 @@ RUN apk update \
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 # source $HOME/.cargo/env here won't help linux/arm64.
 
+ENV PATH /root/.cargo/bin:$PATH
+
 WORKDIR /osu-server/bancho.py
 RUN source $HOME/.cargo/env \
     && git submodule update --init \
