@@ -11,7 +11,7 @@ hCaptcha_sitekey = 'changeme'
 hCaptcha_secret = 'changeme'
 
 # domain (used for api, avatar, etc)
-domain = 'dev.sb'
+domain = 'dev.ppy.sb'
 
 # mysql credentials
 mysql = {
