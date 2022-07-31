@@ -41,6 +41,7 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - redis-data:/data
+      - redis-etc:/etc
 
   mysql:
     build:
@@ -67,6 +68,7 @@ services:
 volumes:
   mysql-data:
   redis-data:
+  redis-etc:
   # maybe bancho.py was born with the complexity when using docker. lol
   unix-sockets:
   project:
