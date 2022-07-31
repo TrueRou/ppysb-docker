@@ -37,7 +37,7 @@ server {
 		add_header Access-Control-Allow-Origin *;
   		add_header Cache-Control no-cache;
   		proxy_redirect off;
-  		proxy_pass http://app:10000;
+  		proxy_pass http://guweb:10000;
   	}
 }
 

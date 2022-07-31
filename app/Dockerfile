@@ -54,6 +54,7 @@ COPY .env /osu-server/bancho.py/
 RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
 COPY bancho.py/run-on-start.sh /run-on-start.sh
+
 EXPOSE 8080
 ENTRYPOINT [ "bash", "/run-on-start.sh" ]
 
