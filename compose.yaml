@@ -13,6 +13,7 @@ services:
       - network
     environment:
       IS_DEV: $IS_DEV
+      RUN_CODE_SERVER: $RUN_CODE_SERVER
 
   guweb:
     build:
@@ -28,6 +29,7 @@ services:
       - network
     environment:
       IS_DEV: $IS_DEV
+      RUN_CODE_SERVER: $RUN_CODE_SERVER
 
   redis:
     image: redis:6.2-alpine
