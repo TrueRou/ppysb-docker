@@ -3,7 +3,7 @@ upstream bancho {
 }
 
 server {
-	server_name api.dev.sb;
+	server_name api.dev.ppy.sb;
     listen 80;
 
 	location / {
@@ -17,7 +17,7 @@ server {
 }
 
 server {
-	server_name osu.dev.sb;
+	server_name osu.dev.ppy.sb;
     listen 80;
 
 	location ~^\/(?:web|api|users|ss|d|p|beatmaps|beatmapsets|community)(?:\/.*|$) {
