@@ -27,14 +27,17 @@ RUN yarn global add add node-gyp
 RUN yarn global add code-server
 RUN code-server --install-extension ms-python.python
 # RUN code-server --install-extension lokalise.i18n-ally
+
 # pre-compile requirements (if needed)
 WORKDIR /osu-server
 RUN git clone $OSU_REPO_URL
 RUN git clone $WEB_REPO_URL
+
 ## guweb
 # WORKDIR /osu-server/guweb
 # RUN git submodule init && git submodule update \
 #     && python3.9 -m pip install -r ext/requirements.txt
+
 ## bancho.py
 WORKDIR /osu-server/bancho.py
 RUN git submodule update --init \
@@ -50,6 +53,7 @@ WORKDIR /osu-server/bancho.py
 #     && pip install -U pip setuptools \
 #     && python3.9 -m pip install -r requirements.txt 
 COPY .env /osu-server/bancho.py/
+
 # Just for the pp system of ppysb(we need rust environment)
 RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
