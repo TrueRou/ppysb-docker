@@ -59,7 +59,7 @@ ENTRYPOINT [ "bash", "/run-on-start.sh" ]
 
 
 FROM builder AS guweb
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usl/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 # for `Pillow` in guweb, which needs to be compiled for linux/arm64
 RUN apk add tiff-dev jpeg-dev openjpeg-dev zlib-dev freetype-dev lcms2-dev \
     libwebp-dev tcl-dev tk-dev harfbuzz-dev fribidi-dev libimagequant-dev \
