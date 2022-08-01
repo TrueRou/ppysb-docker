@@ -21,11 +21,6 @@ RUN apk update \
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH /root/.cargo/bin:$PATH
 
-# code-server
-WORKDIR /
-RUN yarn global add add node-gyp
-RUN yarn global add code-server
-RUN code-server --install-extension ms-python.python
 # RUN code-server --install-extension lokalise.i18n-ally
 
 # pre-compile requirements (if needed)

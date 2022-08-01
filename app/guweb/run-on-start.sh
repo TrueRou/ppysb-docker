@@ -1,11 +1,7 @@
 cd /osu-server/guweb && git pull;
 
-
 if [ "$IS_DEV" == "true" ]
 then
-  if ["$RUN_CODE_SERVER" == "true" ]
-  then code-server --bind-addr 0.0.0.0:8080 --auth none
-  else tail -f /dev/null
-  fi
+  tail -f /dev/null
 else python3 main.py
 fi
