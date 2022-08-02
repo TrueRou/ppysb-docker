@@ -11,6 +11,7 @@ services:
       - network
     environment:
       IS_DEV: $IS_DEV
+      IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
   guweb:
     build:
@@ -25,6 +26,7 @@ services:
       - network
     environment:
       IS_DEV: $IS_DEV
+      IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
   redis:
     image: redis:6.2-alpine

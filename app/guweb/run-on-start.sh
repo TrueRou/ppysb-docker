@@ -5,6 +5,6 @@ then
   echo "Running in dev mode, app is not running."
   tail -f /dev/null
 else
-  echo "Running in production mode, app is running."
+  echo "Running in production mode."
   python3 main.py
 fi

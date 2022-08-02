@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 # app name
 app_name = 'guweb'
@@ -25,7 +26,7 @@ mysql = {
 path_to_gulag = '/osu-server/bancho.py/'
 
 # enable debug (disable when in production to improve performance)
-debug = False
+debug = os.environ["IS_DEV"] == "true"
 
 # disallowed names (hardcoded banned usernames)
 disallowed_names = {
@@ -39,7 +40,7 @@ disallowed_passwords = {
 }
 
 # enable registration
-registration = True
+registration = os.environ["IS_REGISTRATION_ALLOWED"] != "false"
 
 # social links (used throughout guweb)
 github = 'https://github.com/varkaria/guweb'
