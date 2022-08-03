@@ -28,11 +28,7 @@ RUN git clone $WEB_REPO_URL
 
 # common libs
 RUN python3.9 -m pip install requests
-## setuptools breaking the build. install legacy version before-hands
-RUN if [ "$TARGETPLATFORM" == "linux/arm64" ];\
-    then python3.9 -m pip install setuptools==63.2.0;\
-    else python3.9 -m pip install setuptools;\
-    fi
+RUN python3.9 -m pip install setuptools
 
 # guweb
 # WORKDIR /osu-server/guweb
