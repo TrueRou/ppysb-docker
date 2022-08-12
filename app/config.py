@@ -27,6 +27,8 @@ path_to_gulag = '/osu-server/bancho.py/'
 
 # enable debug (disable when in production to improve performance)
 debug = os.environ["IS_DEV"] == "true"
+default_locale = 'zh_CN'
+create_api_key_if_not_exist = True
 
 # disallowed names (hardcoded banned usernames)
 disallowed_names = {
