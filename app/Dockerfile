@@ -35,7 +35,7 @@ RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usl/local/lib/python3.9/site-packages
 
 WORKDIR /osu-server/bancho.py
-COPY .env /osu-server/bancho.py/
+COPY /bancho.py/.env /osu-server/bancho.py/
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
 ENTRYPOINT [ "bash", "/run-on-start.sh" ]
@@ -54,6 +54,7 @@ RUN git clone $WEB_REPO_URL
 WORKDIR /osu-server/guweb-next
 RUN yarn install
 
+COPY /guweb-next/.env /osu-server/guweb-next/
 COPY guweb-next/run-on-start.sh /run-on-start.sh
 
 EXPOSE 3000
