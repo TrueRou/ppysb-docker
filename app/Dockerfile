@@ -31,8 +31,6 @@ RUN git submodule update --init \
     && python3.9 -m pip install -r requirements.txt
 RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
-# bancho.py
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usl/local/lib/python3.9/site-packages
 
 WORKDIR /osu-server/bancho.py
 COPY /bancho.py/.env /osu-server/bancho.py/
