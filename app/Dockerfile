@@ -57,4 +57,4 @@ COPY guweb-next/run-on-start.sh /run-on-start.sh
 
 EXPOSE 3000
 
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+ENTRYPOINT [ "ash", "/run-on-start.sh" ]
