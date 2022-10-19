@@ -19,6 +19,7 @@ Project structure:
 └── nginx
     ├── nginx.conf
     └── Dockerfile
+```
 
 The compose file defines an application with three services `proxy`, `backend` and `db`.
 When deploying the application, docker compose maps port 80 of the proxy service container to port 80 of the host as specified in the file.
@@ -29,7 +30,6 @@ Make sure port 80 on the host is not already being in use.
 > You still can use the MySQL image by uncommenting the following line in the Compose file   
 > `#image: mysql:8`
 
-```
 ## Deploy with docker compose
 
 ```
