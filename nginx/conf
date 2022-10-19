@@ -36,7 +36,7 @@ server {
 			add_header Access-Control-Allow-Origin *;
   		add_header Cache-Control no-cache;
   		proxy_redirect off;
-  		proxy_pass http://guweb:3000;
+  		proxy_pass http://guweb-next:3000;
   	}
 }
 

@@ -13,7 +13,7 @@ services:
       IS_DEV: $IS_DEV
       IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
-  guweb:
+  guweb-next:
     build:
       context: app
       target: guweb-next
