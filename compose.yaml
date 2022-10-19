@@ -16,10 +16,10 @@ services:
   guweb:
     build:
       context: app
-      target: guweb
+      target: guweb-next
     restart: always
     ports:
-      - 10000:10000
+      - 3000:3000
     volumes:
       - project:/osu-server
     networks:
