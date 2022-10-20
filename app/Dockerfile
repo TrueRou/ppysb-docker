@@ -44,7 +44,16 @@ FROM --platform=$TARGETPLATFORM alpine AS guweb-next
 ENV WEB_REPO_URL https://github.com/ppy-sb/guweb-next.git
 
 RUN apk update \
-    && apk add git nodejs yarn npm
+    && apk add \
+    # prisma requirements
+    openssl \
+    openssl-dev \
+    gcompat \
+    # end prisma requirements
+    git \
+    nodejs \
+    yarn \
+    npm 
 
 WORKDIR /osu-server
 RUN git clone $WEB_REPO_URL
