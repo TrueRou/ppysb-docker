@@ -49,6 +49,7 @@ RUN apk update \
     openssl \
     openssl-dev \
     gcompat \
+    build-base \
     # end prisma requirements
     git \
     nodejs \
@@ -60,6 +61,7 @@ RUN git clone $WEB_REPO_URL
 
 WORKDIR /osu-server/guweb-next
 RUN yarn install
+RUN yarn prisma generate
 
 COPY /guweb-next/.env /osu-server/guweb-next/
 COPY guweb-next/run-on-start.sh /run-on-start.sh
