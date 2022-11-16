@@ -37,35 +37,3 @@ COPY /bancho.py/.env /osu-server/bancho.py/
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
 ENTRYPOINT [ "bash", "/run-on-start.sh" ]
-
-# guweb-next
-
-FROM --platform=$TARGETPLATFORM alpine AS guweb-next
-ENV WEB_REPO_URL https://github.com/ppy-sb/guweb-next.git
-
-RUN apk update \
-    && apk add \
-    # prisma requirements
-    openssl \
-    openssl-dev \
-    gcompat \
-    build-base \
-    # end prisma requirements
-    git \
-    nodejs \
-    yarn \
-    npm 
-
-WORKDIR /osu-server
-RUN git clone $WEB_REPO_URL
-
-WORKDIR /osu-server/guweb-next
-RUN yarn install
-RUN yarn prisma generate
-
-COPY /guweb-next/.env /osu-server/guweb-next/
-COPY guweb-next/run-on-start.sh /run-on-start.sh
-
-EXPOSE 3000
-
-ENTRYPOINT [ "ash", "/run-on-start.sh" ]

@@ -15,7 +15,7 @@ services:
 
   guweb-next:
     build:
-      context: app
+      context: guweb-next
       target: guweb-next
     restart: always
     ports:
@@ -24,9 +24,6 @@ services:
       - project:/osu-server
     networks:
       - network
-    environment:
-      IS_DEV: $IS_DEV
-      IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
   redis:
     image: redis:6.2-alpine
