@@ -1,0 +1,23 @@
+http://api.dev.ppy.sb {
+    reverse_proxy http://bancho:3333
+}
+http://osu.dev.ppy.sb {
+    header Access-Control-Allow-Origin *
+    header Cache-Control no-cache
+    @bancho path_regexp ^\/(web|api|users|ss|d|p|beatmaps|beatmapsets|community)\/
+    handle @bancho {
+        reverse_proxy http://bancho:3333
+    }
+    handle {
+        reverse_proxy http://guweb:10000
+    }
+}
+:80 {
+    header Access-Control-Allow-Origin *
+    handle_path /web/* {
+        reverse_proxy http://bancho:3333 {
+            header_up Host osu.ppy.sb
+        }
+    }
+    reverse_proxy http://bancho:3333
+}
