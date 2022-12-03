@@ -19,7 +19,7 @@ RUN if [ "$nix_use_mirror" = "true" ]; \
     else echo "substituters = https://cache.nixos.org/" >/etc/nix/nix.conf;\
     fi
 RUN echo "connect-timeout = 10" >>/etc/nix/nix.conf \
-    && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc nixpkgs.glibc\
+    && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc nixpkgs.opengpg\
     nixpkgs.python3 nixpkgs.python3Packages.setuptools nixpkgs.python3Packages.pip 
 WORKDIR /osu-server
 RUN git clone $OSU_REPO_URL --recursive
@@ -37,7 +37,7 @@ RUN nix-shell -p rustc cargo --command "pip install git+https://github.com/ppy-s
 COPY .env /osu-server/bancho.py/
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+CMD bash /run-on-start.sh
 
 
 FROM builder AS guweb
@@ -54,4 +54,5 @@ COPY guweb/run-on-start.sh /run-on-start.sh
 
 
 EXPOSE 10000
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+
+CMD bash /run-on-start.sh
