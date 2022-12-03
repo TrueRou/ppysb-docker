@@ -14,4 +14,4 @@ COPY /run-on-start.sh /run-on-start.sh
 
 EXPOSE 3000
 
-ENTRYPOINT [ "ash", "/run-on-start.sh" ]
+CMD bash /run-on-start.sh

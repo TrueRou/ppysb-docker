@@ -36,4 +36,4 @@ WORKDIR /osu-server/bancho.py
 COPY /bancho.py/.env /osu-server/bancho.py/
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+CMD bash /run-on-start.sh
