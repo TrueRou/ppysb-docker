@@ -19,7 +19,7 @@ RUN if [ "$nix_use_mirror" = "true" ]; \
     else echo "substituters = https://cache.nixos.org/" >/etc/nix/nix.conf;\
     fi
 RUN echo "connect-timeout = 10" >>/etc/nix/nix.conf \
-    && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc \
+    && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc nixpkgs.glibc\
     nixpkgs.python3 nixpkgs.python3Packages.setuptools nixpkgs.python3Packages.pip 
 WORKDIR /osu-server
 RUN git clone $OSU_REPO_URL --recursive
@@ -44,10 +44,10 @@ FROM builder AS guweb
 ARG TARGETPLATFORM
 
 WORKDIR /osu-server/guweb
-# RUN nix-env -iA nixpkgs.nodejs nixpkgs.yarn
-# RUN pip install -r ext/requirements.txt
-# RUN yarn install --dev
-# RUN cp config.sample.js config.js && yarn i18n:build
+RUN nix-env -iA nixpkgs.nodejs nixpkgs.yarn
+RUN pip install -r ext/requirements.txt
+RUN yarn install --dev
+RUN cp config.sample.js config.js && yarn i18n:build
 
 COPY config.py /osu-server/guweb/
 COPY guweb/run-on-start.sh /run-on-start.sh
