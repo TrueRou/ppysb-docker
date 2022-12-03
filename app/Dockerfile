@@ -55,7 +55,7 @@ RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
 
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+CMD bash /run-on-start.sh
 
 
 FROM builder AS guweb
@@ -83,4 +83,4 @@ COPY guweb/run-on-start.sh /run-on-start.sh
 
 EXPOSE 10000
 
-ENTRYPOINT [ "bash", "/run-on-start.sh" ]
+CMD bash /run-on-start.sh
