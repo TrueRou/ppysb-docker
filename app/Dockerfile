@@ -11,16 +11,16 @@ ARG nix_mirror="https://mirrors.bfsu.edu.cn/nix-channels/nixpkgs-unstable"
 ARG nix_substituters="https://mirrors.bfsu.edu.cn/nix-channels/store https://nix-bin.hydro.ac/"
 
 RUN if [ "$nix_use_mirror" = "true" ]; \
-  then nix-channel --remove nixpkgs && nix-channel --add $nix_mirror nixpkgs; \
-  fi
+    then nix-channel --remove nixpkgs && nix-channel --add $nix_mirror nixpkgs; \
+    fi
 RUN nix-channel --update
 RUN if [ "$nix_use_mirror" = "true" ]; \
-  then echo "substituters = ${nix_substituters} https://cache.nixos.org/" >/etc/nix/nix.conf; \
-  else echo "substituters = https://cache.nixos.org/" >/etc/nix/nix.conf;\
-  fi
+    then echo "substituters = ${nix_substituters} https://cache.nixos.org/" >/etc/nix/nix.conf; \
+    else echo "substituters = https://cache.nixos.org/" >/etc/nix/nix.conf;\
+    fi
 RUN echo "connect-timeout = 10" >>/etc/nix/nix.conf \
-  && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc \
-  nixpkgs.python3 nixpkgs.python3Packages.setuptools nixpkgs.python3Packages.pip 
+    && nix-env -iA nixpkgs.git nixpkgs.curl nixpkgs.bash nixpkgs.gnupg nixpkgs.gcc \
+    nixpkgs.python3 nixpkgs.python3Packages.setuptools nixpkgs.python3Packages.pip 
 WORKDIR /osu-server
 RUN git clone $OSU_REPO_URL --recursive
 RUN git clone $WEB_REPO_URL --recursive
@@ -44,10 +44,10 @@ FROM builder AS guweb
 ARG TARGETPLATFORM
 
 WORKDIR /osu-server/guweb
-RUN nix-env -iA nixpkgs.nodejs nixpkgs.yarn
-RUN pip install -r ext/requirements.txt
-RUN yarn install --dev
-RUN cp config.sample.js config.js && yarn i18n:build
+# RUN nix-env -iA nixpkgs.nodejs nixpkgs.yarn
+# RUN pip install -r ext/requirements.txt
+# RUN yarn install --dev
+# RUN cp config.sample.js config.js && yarn i18n:build
 
 COPY config.py /osu-server/guweb/
 COPY guweb/run-on-start.sh /run-on-start.sh
