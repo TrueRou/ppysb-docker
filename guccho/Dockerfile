@@ -9,7 +9,7 @@ WORKDIR /osu-server/guccho
 RUN yarn install
 RUN yarn build:schemas
 
-COPY /.env /osu-server/guccho/
+COPY /.env /osu-server/guccho/.env.development
 COPY /run-on-start.sh /run-on-start.sh
 
 EXPOSE 3000
