@@ -11,7 +11,7 @@ services:
     networks:
       - network
     environment:
-      IS_DEV: $IS_DEV
+      DRY_RUN: $DRY_RUN_CONTAINER_BANCHO_PY
       IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
   guweb:
@@ -27,7 +27,7 @@ services:
     networks:
       - network
     environment:
-      IS_DEV: $IS_DEV
+      DRY_RUN: $DRY_RUN_CONTAINER_GUWEB
       IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
 
   guccho:
@@ -43,7 +43,7 @@ services:
     networks:
       - network
     environment:
-      IS_DEV: $IS_DEV
+      DRY_RUN: $DRY_RUN_CONTAINER_GUCCHO
 
   redis:
     image: redis:6.2-alpine

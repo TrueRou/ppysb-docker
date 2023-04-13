@@ -26,7 +26,7 @@ mysql = {
 path_to_gulag = '/osu-server/bancho.py/'
 
 # enable debug (disable when in production to improve performance)
-debug = os.environ["IS_DEV"] == "true"
+debug = (os.getenv('IS_DEV') or os.getenv("DRY_RUN_CONTAINER_GUWEB")) == "true"
 default_locale = 'zh_CN'
 create_api_key_if_not_exist = True
 

@@ -6,6 +6,9 @@ WORKDIR /osu-server
 RUN git clone $WEB_REPO_URL
 
 WORKDIR /osu-server/guccho
+RUN sort -u -t '=' -k 1,1 .env.example .env.development | grep -v '^$\|^\s*\#' > .env.development
+RUN cp .env.development .env
+
 RUN yarn install
 RUN yarn build:schemas
 

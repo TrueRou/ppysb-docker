@@ -4,7 +4,8 @@
 Project structure:
 ```
 .
-├── .env
+├── .env.sample
+├── .env (you have  configure this yourself)
 ├── compose.yaml
 ├── app
 │   ├── bancho.py

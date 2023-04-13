@@ -1,7 +1,6 @@
-cd /osu-server/bancho.py && git pull;
+cd /osu-server/bancho.py && git pull
 
-if [ "$IS_DEV" == "true" ]
-then
+if [ "$DRY_RUN" == "true" ]; then
   echo "Running in dev mode, app is not running."
   tail -f /dev/null
 else

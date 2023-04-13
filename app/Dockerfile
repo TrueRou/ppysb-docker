@@ -77,7 +77,7 @@ RUN git submodule init && git submodule update \
     && python3.9 -m pip install -r ext/requirements.txt
 RUN yarn install --dev
 RUN cp config.sample.js config.js
-COPY config.py /osu-server/guweb/
+COPY guweb/config.py /osu-server/guweb/config.py
 COPY guweb/run-on-start.sh /run-on-start.sh
 
 EXPOSE 10000
