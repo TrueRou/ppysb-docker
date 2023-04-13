@@ -20,7 +20,7 @@ services:
       target: guweb
     restart: always
     ports:
-      - 10000:10000
+      - 8000:8000
     volumes:
       - project:/osu-server
       - vscode-server:/root/.vscode-server

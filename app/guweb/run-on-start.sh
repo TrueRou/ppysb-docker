@@ -5,5 +5,7 @@ if [ "$DRY_RUN" == "true" ]; then
   tail -f /dev/null
 else
   echo "Running in production mode."
+  yarn install
+  yarn i18n:build
   python3 main.py
 fi
