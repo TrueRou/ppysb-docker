@@ -9,8 +9,8 @@ WORKDIR /osu-server/guccho
 RUN sort -u -t '=' -k 1,1 .env.example .env.development | grep -v '^$\|^\s*\#' > .env.development
 RUN cp .env.development .env
 
-RUN yarn install
-RUN yarn build:schemas
+RUN yarn install || true
+RUN yarn build:gen
 
 COPY /.env /osu-server/guccho/.env.development
 COPY /run-on-start.sh /run-on-start.sh
