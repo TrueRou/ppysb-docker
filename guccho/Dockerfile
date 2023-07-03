@@ -6,13 +6,12 @@ WORKDIR /osu-server
 RUN git clone $WEB_REPO_URL
 
 WORKDIR /osu-server/guccho
-RUN sort -u -t '=' -k 1,1 .env.example .env.development | grep -v '^$\|^\s*\#' > .env.development
-RUN cp .env.development .env
+RUN sort -u -t '=' -k 1,1 .env.example .env | grep -v '^$\|^\s*\#' > .env
 
 RUN yarn install || true
 RUN yarn build:gen
 
-COPY /.env /osu-server/guccho/.env.development
+COPY /.env /osu-server/guccho/.env
 COPY /run-on-start.sh /run-on-start.sh
 
 EXPOSE 3000
