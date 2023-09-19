@@ -73,3 +73,7 @@ Global proxy of windows will automatically configured if docker desktop is runni
 - cp gulag/config.sample.js ppysb-docker/app/guweb/config.js
 - cp guccho/.env.example ppysb-docker/guccho/.env
 
+## Possible problems
+
+- failed to connect to github when pushing: disable copy git config in vscode container plugin
+
