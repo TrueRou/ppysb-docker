@@ -8,8 +8,6 @@ services:
       - unix-sockets:/socket
       - project:/osu-server
       - vscode-server:/root/.vscode-server
-    networks:
-      - network
     environment:
       DRY_RUN: $DRY_RUN_CONTAINER_BANCHO_PY
       IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
@@ -19,13 +17,9 @@ services:
       context: app
       target: guweb
     restart: always
-    ports:
-      - 8000:8000
     volumes:
       - project:/osu-server
       - vscode-server:/root/.vscode-server
-    networks:
-      - network
     environment:
       DRY_RUN: $DRY_RUN_CONTAINER_GUWEB
       IS_REGISTRATION_ALLOWED: $IS_REGISTRATION_ALLOWED
@@ -35,13 +29,9 @@ services:
       context: guccho
       target: guccho
     restart: always
-    ports:
-      - 3000:3000
     volumes:
       - project:/osu-server
       - vscode-server:/root/.vscode-server
-    networks:
-      - network
     environment:
       DRY_RUN: $DRY_RUN_CONTAINER_GUCCHO
 
@@ -49,15 +39,11 @@ services:
     image: redis:6.2-alpine
     restart: always
     ports:
-      - '6379:6379'
-    networks:
-      - network
+      - '6380:6379'
     command: redis-server --save 20 1 --loglevel warning
-    volumes: 
+    volumes:
       - redis-data:/data
       - redis-etc:/etc
-
-      
 
   mysql:
     build:
@@ -65,11 +51,9 @@ services:
       target: builder
     restart: always
     volumes:
-        - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     ports:
-      - 3306:3306
-    networks:
-      - network
+      - 3307:3306
 
   nginx:
     build: nginx
@@ -78,18 +62,17 @@ services:
       - 80:80
       - 443:443
     volumes:
-        - unix-sockets:/socket
-    networks:
-      - network
+      - unix-sockets:/socket
 
 volumes:
   mysql-data:
   redis-data:
-  redis-etc:
-  # maybe bancho.py was born with the complexity when using docker. lol
+  redis-etc: # maybe bancho.py was born with the complexity when using docker. lol
+
   unix-sockets:
   vscode-server:
   project:
+
 
 networks:
   network:

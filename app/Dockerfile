@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM --platform=$TARGETPLATFORM python:3.9-alpine AS builder
+FROM --platform=$TARGETPLATFORM python:3.11.5-alpine3.18 AS builder
 
 ENV OSU_REPO_URL https://github.com/ppy-sb/bancho.py.git
 ENV WEB_REPO_URL https://github.com/ppy-sb/guweb.git
@@ -26,28 +26,21 @@ RUN git clone $OSU_REPO_URL
 RUN git clone $WEB_REPO_URL
 
 # common libs
-RUN python3.9 -m pip install requests
-RUN python3.9 -m pip install setuptools
-
-# guweb
-# WORKDIR /osu-server/guweb
-# RUN git submodule init && git submodule update \
-#     && python3.9 -m pip install -r ext/requirements.txt
+RUN python3.11 -m pip install requests
+RUN python3.11 -m pip install setuptools
 
 # bancho.py
 WORKDIR /osu-server/bancho.py
 RUN git submodule update --init \
-    && python3.9 -m pip install -r requirements.txt
+    && python3.11 -m pip install -r requirements.txt
 
 
-# bancho.py
+# bancho.py builder
 FROM builder AS bancho.py
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usl/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usl/local/lib/python3.11/site-packages
 
 WORKDIR /osu-server/bancho.py
-# RUN git submodule update --init \
-#     && python3.9 -m pip install -r requirements.txt 
-COPY .env /osu-server/bancho.py/
+COPY .env /osu-server/bancho.py/.env
 
 # Just for the pp system of ppysb(we need rust environment)
 RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
@@ -56,10 +49,10 @@ COPY bancho.py/run-on-start.sh /run-on-start.sh
 
 ENTRYPOINT [ "bash", "/run-on-start.sh" ]
 
-
+# guweb builder
 FROM builder AS guweb
 ARG TARGETPLATFORM
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
 RUN apk add nodejs yarn npm
 
@@ -74,7 +67,7 @@ RUN if [ "$TARGETPLATFORM" == "linux/arm64" ];\
 WORKDIR /osu-server/guweb
 
 RUN git submodule init && git submodule update \
-    && python3.9 -m pip install -r ext/requirements.txt
+    && python3.11 -m pip install -r ext/requirements.txt
 RUN yarn install --dev
 # RUN cp config.sample.js config.js
 COPY guweb/config.py /osu-server/guweb/config.py
