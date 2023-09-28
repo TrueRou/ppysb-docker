@@ -43,7 +43,7 @@ WORKDIR /osu-server/bancho.py
 COPY .env /osu-server/bancho.py/.env
 
 # Just for the pp system of ppysb(we need rust environment)
-RUN bash -c "pip install git+https://github.com/ppy-sb/ppysb-pp-py.git"
+RUN bash -c "pip install git+https://github.com/ppy-sb/rosu-pp-py.git"
 
 COPY bancho.py/run-on-start.sh /run-on-start.sh
 
