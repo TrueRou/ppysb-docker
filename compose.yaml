@@ -8,6 +8,8 @@ services:
       - unix-sockets:/socket
       - project:/osu-server
       - vscode-server:/root/.vscode-server
+    environment:
+      DRY_RUN: $DRY_RUN_CONTAINER_BANCHO_PY
 
   redis:
     image: redis:6.2-alpine
