@@ -4,10 +4,17 @@ services:
     restart: always
     volumes:
       - project:/osu-server
-      - vscode-server:/root/.vscode-server
     environment:
       PROD_MODE: $PROD_MODE_BACKEND
       OSU_API_KEY: $OSU_API_KEY
+
+  guccho:
+    build: guccho
+    restart: always
+    volumes:
+      - project:/osu-server
+    environment:
+      PROD_MODE: $PROD_MODE_FRONTEND
 
   redis:
     image: redis:6.2-alpine
@@ -38,11 +45,10 @@ services:
 volumes:
   mysql-data:
   redis-data:
-  redis-etc: # maybe bancho.py was born with the complexity when using docker. lol
+  redis-etc:
 
   vscode-server:
   project:
-
 
 networks:
   network:
