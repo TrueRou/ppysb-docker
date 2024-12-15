@@ -1,17 +1,13 @@
 # Bancho.py + guccho w/ Nginx, MySQL, and Redis services
-### Python/Flask with Nginx proxy and MySQL database
 
-Project structure:
+## Project structures
 ```
 .
-├── .env.sample
-├── .env (you have  configure this yourself)
+├── .env.example
+├── .env (you have to configure this by yourself)
 ├── compose.yaml
-├── app
-│   ├── bancho.py
-│   │   └── *
-│   ├── guccho
-│   │   └── *
+├── bancho.py
+│   ├── run-on-start.sh
 │   └── Dockerfile
 ├── mysql
 │   ├── init
@@ -19,17 +15,21 @@ Project structure:
 │   └── Dockerfile
 └── nginx
     ├── nginx.conf
+    ├── cert.pem
+    ├── key.pem
     └── Dockerfile
 ```
 
-The compose file defines an application with three services `proxy`, `backend` and `db`.
-When deploying the application, docker compose maps port 80 of the proxy service container to port 80 of the host as specified in the file.
-Make sure port 80 on the host is not already being in use.
+When deploying the application, docker compose maps port **80**, **443**, **3307** of the proxy service container to host machine.
+
+Make sure these ports on the host is not already being in use.
 
 > ℹ️ **_INFO_**  
-> For compatibility purpose between `AMD64` and `ARM64` architecture, we use a MariaDB as database instead of MySQL.  
-> You still can use the MySQL image by uncommenting the following line in the Compose file   
-> `#image: mysql:8`
+> For Chinese developers under **Windows** and **Docker Desktop** environment, we **STRONGLY** recommended that:
+>
+> **DO NOT USE WSL2-mode** (WSL2 based engine), WSL2 owns a complex networking strategy, causing it difficult to configuring proxy in some cases.
+> 
+> **Use legacy mode** (Hyper-V mode), the system proxy will automatically configured and applied to every containers.
 
 ## Deploy with docker compose
 
@@ -48,15 +48,11 @@ $ docker compose build --no-cache
 $ docker compose up -d
 ```
 
-## Use with Docker Development Environments
+## How to dive into development
 
-Attach to container which running in dev mode
-
-## Hint about running with Docker Desktop in some network situation
-
-Due to the difficulty when configuring proxy in Wsl, we suggest you not to use Wsl2 based engine.
-
-Global proxy of windows will automatically configured if docker desktop is running in legacy mode.
+1. Create and edit the .env file, assign the values.
+2. If you only focus on backend / frontend dev, edit PROD_MODE in .env in your case.
+3. Attach to bancho.py / guccho containers with VSCode `Dev Containers`.
 
 ## How to connect to bancho.py
 
@@ -65,15 +61,7 @@ Global proxy of windows will automatically configured if docker desktop is runni
 3. Terminal: $ python3.11 main.py
 4. Run osu!client with "-devserver dev.ppy.sb" (dev.ppy.sb will resolve to localhost)
 
-## How to apply to the newest repository
-
-- cp bancho.py/migrations/base.sql ppysb-docker/mysql/init/base.sql
-- cp bancho.py/manual.env.example ppysb-docker/app/.env
-- cp gulag/config.sample.py ppysb-docker/app/guweb/config.py
-- cp gulag/config.sample.js ppysb-docker/app/guweb/config.js
-- cp guccho/.env.example ppysb-docker/guccho/.env
-
 ## Possible problems
 
-- failed to connect to github when pushing: disable copy git config in vscode container plugin
+- Got an error when pushing to Github: Try to disable `Copy Git Config` in `Dev Containers` plugin
 
