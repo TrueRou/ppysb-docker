@@ -1,32 +1,27 @@
 services:
   bancho.py:
-    build:
-      context: app
-      target: bancho.py
+    build: bancho.py
     restart: always
     volumes:
-      - unix-sockets:/socket
       - project:/osu-server
       - vscode-server:/root/.vscode-server
     environment:
-      DRY_RUN: $DRY_RUN_CONTAINER_BANCHO_PY
+      PROD_MODE: $PROD_MODE_BACKEND
+      OSU_API_KEY: $OSU_API_KEY
 
   redis:
     image: redis:6.2-alpine
     restart: always
-    ports:
-      - '6380:6379'
     command: redis-server --save 20 1 --loglevel warning
     volumes:
       - redis-data:/data
       - redis-etc:/etc
 
   mysql:
-    build:
-      context: mysql
-      target: builder
+    build: mysql
     restart: always
     volumes:
+      - project:/osu-server
       - mysql-data:/var/lib/mysql
     ports:
       - 3307:3306
@@ -37,15 +32,14 @@ services:
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - unix-sockets:/socket
+    links:
+      - "bancho.py:banchopy"
 
 volumes:
   mysql-data:
   redis-data:
   redis-etc: # maybe bancho.py was born with the complexity when using docker. lol
 
-  unix-sockets:
   vscode-server:
   project:
 

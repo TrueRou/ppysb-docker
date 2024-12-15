@@ -4,14 +4,11 @@
 Project structure:
 ```
 .
-├── .env.sample
-├── .env (you have  configure this yourself)
+├── .env.example
+├── .env (you have to configure this by yourself)
 ├── compose.yaml
-├── app
-│   ├── bancho.py
-│   │   └── *
-│   ├── guccho
-│   │   └── *
+├── bancho.py
+│   ├── run-on-start.sh
 │   └── Dockerfile
 ├── mysql
 │   ├── init
@@ -19,6 +16,8 @@ Project structure:
 │   └── Dockerfile
 └── nginx
     ├── nginx.conf
+    ├── cert.pem
+    ├── key.pem
     └── Dockerfile
 ```
 
@@ -64,14 +63,6 @@ Global proxy of windows will automatically configured if docker desktop is runni
 2. Attach to the container of bancho.py.
 3. Terminal: $ python3.11 main.py
 4. Run osu!client with "-devserver dev.ppy.sb" (dev.ppy.sb will resolve to localhost)
-
-## How to apply to the newest repository
-
-- cp bancho.py/migrations/base.sql ppysb-docker/mysql/init/base.sql
-- cp bancho.py/manual.env.example ppysb-docker/app/.env
-- cp gulag/config.sample.py ppysb-docker/app/guweb/config.py
-- cp gulag/config.sample.js ppysb-docker/app/guweb/config.js
-- cp guccho/.env.example ppysb-docker/guccho/.env
 
 ## Possible problems
 
