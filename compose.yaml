@@ -2,8 +2,6 @@ services:
   bancho.py:
     build: bancho.py
     restart: always
-    volumes:
-      - project:/osu-server
     environment:
       PROD_MODE: $PROD_MODE_BACKEND
       OSU_API_KEY: $OSU_API_KEY
@@ -11,8 +9,6 @@ services:
   guccho:
     build: guccho
     restart: always
-    volumes:
-      - project:/osu-server
     environment:
       PROD_MODE: $PROD_MODE_FRONTEND
 
@@ -28,7 +24,6 @@ services:
     build: mysql
     restart: always
     volumes:
-      - project:/osu-server
       - mysql-data:/var/lib/mysql
     ports:
       - 3307:3306
@@ -46,9 +41,6 @@ volumes:
   mysql-data:
   redis-data:
   redis-etc:
-
-  vscode-server:
-  project:
 
 networks:
   network:
