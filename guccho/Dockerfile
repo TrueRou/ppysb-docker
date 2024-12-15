@@ -3,7 +3,7 @@ FROM --platform=$TARGETPLATFORM node:23
 ENV WEB_REPO_URL https://github.com/ppy-sb/Guccho.git
 ENV DB_DSN=mysql://root:@mysql:3306/banchopy
 ENV REDIS_URL=redis://redis:6379
-ENV HOST=127.0.0.1
+ENV HOST=0.0.0.0
 ENV PORT=3000
 
 # # pre-compile requirements
@@ -19,5 +19,6 @@ RUN cp guccho.backend.config.example.ts guccho.backend.config.ts
 RUN pnpm install
 
 COPY /run-on-start.sh /run-on-start.sh
+RUN mkdir -p /osu-server/Guccho/.dump/ppy.sb/avatar
 
 ENTRYPOINT [ "bash", "/run-on-start.sh" ]
