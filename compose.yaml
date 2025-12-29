@@ -1,46 +1,10 @@
 services:
-  bancho.py:
-    build: bancho.py
-    restart: always
-    environment:
-      PROD_MODE: $PROD_MODE_BACKEND
-      OSU_API_KEY: $OSU_API_KEY
-
-  guccho:
-    build: guccho
-    restart: always
-    environment:
-      PROD_MODE: $PROD_MODE_FRONTEND
-
-  redis:
-    image: redis:6.2-alpine
-    restart: always
-    command: redis-server --save 20 1 --loglevel warning
-    volumes:
-      - redis-data:/data
-      - redis-etc:/etc
-
-  mysql:
-    build: mysql
-    restart: always
-    volumes:
-      - mysql-data:/var/lib/mysql
-    ports:
-      - 3307:3306
-
   nginx:
     build: nginx
     restart: always
     ports:
       - 80:80
       - 443:443
-    links:
-      - "bancho.py:banchopy"
-
-volumes:
-  mysql-data:
-  redis-data:
-  redis-etc:
 
 networks:
   network:
